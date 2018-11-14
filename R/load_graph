@@ -1,0 +1,6 @@
+load_graph<-function()
+{
+path <- "C:/OpencpuApp_IP/graph.RData"
+load(path)
+graph
+}

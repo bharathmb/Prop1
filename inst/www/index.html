@@ -1,0 +1,500 @@
+<!Doctype html5>
+<html>
+
+<head>
+  <title>Propensity Model</title>
+    <script src="opencpu/jquery-1.10.2.min.js"></script>
+    <script src="opencpu/opencpu-0.4.js"></script>
+						<!--<script src="plot_df.js"></script>-->
+						<script src="read_df.js"></script>
+						<script src="model_df.js"></script>
+						<script src="scoring_df.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <!-- <link href="css/bubbles.css" rel="stylesheet" type="text/css"> -->
+  <link href="scss/style.css" rel="stylesheet" type="text/css">
+   <link href="scss/model_new.css" rel="stylesheet" type="text/css">
+  <link href="fontawesome/web-fonts-with-css/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <script src="js/highcharts.js"></script>
+  <script src="http://code.highcharts.com/highcharts-more.js"></script>
+<!--	
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.appear/0.3.3/jquery.appear.js"></script>
+      <style>
+	  #output{
+      min-height: 200px;
+      border: solid gray 1px;
+	  padding: 3px;
+	  color:black;
+	  background-color : white;
+    }
+	#output2{
+     		 height: 50px;
+		 width: 600px;
+     		 border: solid gray 1px;
+	  	padding: 3px;
+	  	color:black;
+	  	background-color : white;
+   	 }
+	 
+     #plotdiv1 {
+       position: relative;
+       width: 600px;
+       height: 400px;
+       border: solid gray 1px;
+     }
+	 
+	  #plotdiv {
+       position: relative;
+       width: 400px;
+       height: 400px;
+       border: solid gray 1px;
+     }
+	 
+	 #plotdiv2 {
+       position: relative;
+       width: 900px;
+       height: 600px;
+       border: solid gray 1px;
+     }
+	 
+    </style>						
+</head>
+
+<body>
+	
+
+
+  <div id="background-wrap">
+    <div class="bubble x1"></div>
+    <div class="bubble x2"></div>
+    <div class="bubble x3"></div>
+    <div class="bubble x4"></div>
+    <div class="bubble x5"></div>
+    <div class="bubble x6"></div>
+    <div class="bubble x7"></div>
+    <div class="bubble x8"></div>
+    <div class="bubble x9"></div>
+    <div class="bubble x10"></div>
+  </div>
+
+  <!-- <div class="device-notification">
+    <a class="device-notification--logo" href="#0">
+      <p>Propensity Model</p>
+    </a>
+    <p class="device-notification--message">Global has so much to offer that we must request you orient your device to portrait or find a larger screen. You won't
+      be disappointed.</p>
+  </div> -->
+
+  <div class="perspective effect-rotate-left">
+
+    <!-- <div class="outer-nav--return"></div> -->
+
+  <div id="viewport" class="l-viewport">
+   <div class="container-main">
+    <header>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="header-wrapper">
+              <h5>Propensity Model</h5>
+              <div class="header--nav-toggle">
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-fluid body-margin">
+      <div class="row">
+        <div class="col-12">
+
+
+          <div class="row">
+            <div class="col-sm-2">
+              <div class="side-nav-fixed">
+                <ul class="side-nav">
+                  <li class="is-active">
+                    <span>Choose CSV File</span>
+                  </li>
+                  <li>
+                    <span>Variable Profiling</span>
+                  </li>
+                  <li>
+                    <span>Build a Model</span>
+                  </li>
+                  <li>
+                    <span>View Model Results</span>
+                  </li>
+                  <li>
+                    <span>Score the Model</span>
+                  </li>
+                </ul>
+
+                <!-- <div>
+                                <label>Powered by Latentview</label>
+                        </div> -->
+
+              </div>
+            </div>
+
+            <div class="col-sm-10">
+              <div class="body-right-wrapper">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <ul class="l-main-content main-content">
+					
+                      <li class="l-section section section--is-active">
+                        <div class="intro">
+
+                          <h2><b>Choose CSV File</b></h2>
+						  <br></br><br></br>
+						  <div class="choose-data">
+		 	<b>Input Data File Path</b> <input type="file" id="uploadFile"> 
+                          
+			    
+				<br></br>
+        
+							<br>
+							<b>DV name: </b> <input type="text" id="dvname">
+							<b>DV Level: </b> <input type="text" id="preddv">
+							 <b>Data Split (%)</b> <input type="text" id="data-split" align="left">
+							</br>
+							<br><b><button id="submitbutton" type="button">Upload CSV file!</button></b></br>
+							<br>
+					<pre id="output"><code></code></pre>	
+					</br>
+                          </div>
+
+                          <div class="lds-dual-ring" id="status1">Go on & feed me a CSV!</div>
+
+                        </div>
+                      </li>
+		
+
+                      <li class="l-section section">
+                        <div class="work">
+                          <h2>Variable Profiling</h2>
+				
+
+							
+							<body id="addOption_list";>
+								<FORM name="drop_list" action="yourpage.php" >
+										
+								<SELECT id="DropList" NAME="DropList" >
+								 <!--<Option value="" >Variables</option> -->
+								</SELECT>
+								</form>
+								
+								
+
+                          <div class="radio-list-wrapper">
+                            <!--<div id="dose" style="width:100%"></div>-->
+							 
+							<div id="plotdiv1"></div>	
+						
+						<div id="plotdiv"></div>
+						<!--	<div id="myChart">
+						  
+						  <select id="chart-selector" name="chart-selector">
+							
+							<option value="">Please Select An Option</option>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							
+						  </select>
+						  
+						</div>
+						
+                            <div id="variable-profiling" style="width:100%"></div>-->
+                          </div>
+
+
+                        </div>
+                      </li>
+
+
+						<!--
+                      <li class="l-section section">
+                        <div class="about">						
+
+                          <div class="radio-list">
+						  <h2><div id="status3">Select a Model to train!</div></h2>
+
+                            <div class="radio-list-cover">
+                              <div class="radio">
+									<input id="select-1" name="radio" type="radio" value="LR" checked>
+									<label for="select-1" class="radio-label">Logistic Regression</label>
+								</div>
+								<div class="radio">
+									<input id="select-2" name="radio" type="radio" value="RF">
+									<label for="select-2" class="radio-label">Random Forest</label>
+								</div>
+								
+								<div class="radio">
+									<input id="select-3" name="radio" type="radio" value="SVM">
+									<label for="select-3" class="radio-label">SVM</label>
+								</div>
+
+								<div class="radio">
+									<input id="select-4" name="radio" type="radio" value="GBM">
+									<label for="select-4" class="radio-label">GBM</label>
+								</div>
+
+								<div class="radio">
+									<input id="select-5" name="radio" type="radio" value="NB">
+									<label for="select-5" class="radio-label">Naive Bayes</label>
+								</div>
+
+								<div class="radio">
+									<input id="select-6" name="radio" type="radio" value="NNET">
+									<label for="select-6" class="radio-label">Neural Network</label>
+								</div>
+
+								<div class="radio">
+									<input id="select-7" name="radio" type="radio" value="OEM">
+									<label for="select-7" class="radio-label">optimized Ensemble model</label>
+								</div>
+
+                            </div>
+
+                            <div>
+                              <button id="show_perf">Start Building</button>
+							</div>
+
+                          </div>
+                        </div>
+                      </li>
+					  -->
+					  
+					  													<li class="l-section section">
+														<div class="about">
+														<div id="model_opt">
+															<div class="radio-list">
+																<h2><div id="status3">Select a Model to train!</div></h2>
+																<div class="radio-list-cover">
+																	<div class="radio">
+																		<input id="LR" name="radio" type="radio" checked>
+																		<label for="select-1" class="radio-label">Logistic Regression</label>
+																	</div>
+																	<div class="radio">
+																		<input id="RF" name="radio" type="radio" >
+																		<label for="RF" class="radio-label">Random Forest</label>
+																	</div>
+																	
+																	<div class="radio">
+																		<input id="SVM" name="radio" type="radio" >
+																		<label for="SVM" class="radio-label">SVM</label>
+																	</div>
+
+																	<div class="radio">
+																		<input id="GBM" name="radio" type="radio" >
+																		<label for="GBM" class="radio-label">GBM</label>
+																	</div>
+
+																	<div class="radio">
+																		<input id="NB" name="radio" type="radio" >
+																		<label for="NB" class="radio-label">Naive Bayes</label>
+																	</div>
+
+																	<div class="radio">
+																		<input id="select-6" name="radio" type="radio" value="NNET">
+																		<label for="select-6" class="radio-label">Neural Network</label>
+																	</div>
+
+																	<div class="radio">
+																		<input id="select-7" name="radio" type="radio" value="OEM">
+																		<label for="select-7" class="radio-label">optimized Ensemble model</label>
+																	</div>
+																</div>
+																<div>
+																  <button id="show_perf">Start Building</button>
+																</div>
+															</div>
+															</div>
+															<div class="lds-dual-ring" id="building_inter">Let's build a model!!
+															</div>															
+															<div id="model_out" >
+															<h2 align="center"><b>Model Performance</b></h2>
+															<table class="table table-borderless table-responsive" id="results_table">
+																<thead>
+																	<tr class>
+																		<th scope="col">Model</th>
+																		<th scope="col">No Info Rate(%)</th>
+																		<th scope="col">Accuracy(%)</th>
+																		<th scope="col">Sensitivity(%)</th>
+																		<th scope="col">Specificity(%)</th>
+																		<th scope="col">Kappa(%)</th>
+																	</tr>
+																</thead>
+																<tbody id="normal_results">
+																	<tr>
+																		<th id="mod_nm" scope="row"></th>
+																		<td id="inr"> 67.17% </td>
+																		<td id="acc"> 79.82% </td>
+																		<td id="sen"> 88.79% </td>
+																		<td id="spe"> 61.47% </td>
+																		<td id="kap"> 52.34% </td>
+																	</tr>
+																</tbody>
+																<tbody id="oem_results">
+																	<tr>
+																		<th scope="row">LR</th>
+																		<td id="inr"> 67.17% </td>
+																		<td id="acc"> 79.82% </td>
+																		<td id="sen"> 88.79% </td>
+																		<td id="spe"> 61.47% </td>
+																		<td id="kap"> 52.34% </td>
+																	</tr>
+																	<tr>
+																		<th scope="row">NB</th>
+																		<td id="inr"> 67.17% </td>
+																		<td id="acc"> 75.98% </td>
+																		<td id="sen"> 79.00% </td>
+																		<td id="spe"> 60.56% </td>
+																		<td id="kap"> 51.76% </td>
+																	</tr>
+																	<tr>
+																		<th scope="row">RF</th>
+																		<td id="inr"> 67.17% </td>
+																		<td id="acc"> 82.76% </td>
+																		<td id="sen"> 89.79% </td>
+																		<td id="spe"> 70.36% </td>
+																		<td id="kap"> 65.47% </td>
+																	</tr>
+																	<tr class="table-active">
+																		<th scope="row">OEM</th>
+																		<td id="inr"> 67.17% </td>
+																		<td id="acc"> 95.03% </td>
+																		<td id="sen"> 92.65% </td>
+																		<td id="spe"> 94.37% </td>
+																		<td id="kap"> 72.45% </td>
+																	</tr>
+																</tbody>
+															</table>
+															<button id="show_model_sel" align="right">Show Model Selection</button>
+															<!-- div for results-->
+															</div>
+														</div>
+
+
+                      <li class="l-section section">
+                        <div class="contact--lockup">
+                          <h2>Results</h2>
+                          <div class="result-wrapper">
+
+                            <div class="list">
+                              <h6>Significant Variables</h6>
+                              <ul id="sig_list">
+                              </ul>
+                            </div>
+							
+							<div id="plotdiv2"></div>	
+		
+		<!--
+                            <div class="result-chart">
+                              <div id="Result01"></div>
+                              <div id="Result02"></div>
+                              <table border="1">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th>Predicted: No</th>
+                                    <th>Predicted: Yes</th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+
+                                  <tr>
+                                    <td>Actual: No</td>
+                                    <td>50</td>
+                                    <td>20</td>
+                                  </tr>
+
+                                  <tr>
+                                    <td>Actual: Yes</td>
+                                    <td>5</td>
+                                    <td>100</td>
+                                  </tr>
+
+                                </tbody>
+                              </table>
+                            </div>
+
+                          </div>
+                        </div>
+                      </li>
+					  -->
+
+
+                      <li class="l-section section">
+                        <div class="hire">
+
+
+                          <div class="intro">
+                            <h2>Evaluation Module</h2>
+							<div class="choose-data">
+								<b>Input Data File Path</b> <input type="file" id="uploadFile2">   
+									
+								<b><button id="downloadbutton" type="button">Download Results Here!</button></b>
+									
+                          </div>
+						  
+						  <pre id="output2"><code></code></pre>	
+
+                          <div class="lds-dual-ring" id="status2">Waiting for Dataset to Score on!</div>
+
+                        </div>
+
+                          </div>
+
+   
+                      </li>
+
+
+
+                    </ul>
+                  </div>
+
+                  
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  
+
+   </div>
+  </div>
+
+
+  <ul class="outer-nav">
+      <li class="is-active">Choose CSV</li>
+      <li>Variable Profiling</li>
+      <li>Select the Model</li>
+      <li>Results</li>
+      <li>Scoring</li>
+    </ul>
+
+
+  </div>
+
+</body>
+
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>-->
+<script src="js/functions-min.js"></script>
+<script src="js/high-chart-code.js"></script>
+
+</html>

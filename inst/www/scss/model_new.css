@@ -1,0 +1,40 @@
+.dead_center {
+        position: relative;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 60%;
+        height: 60%;
+        margin: auto;
+    }
+
+select#btn_ct {
+line-height:0.8 !important;
+}
+
+.custom-select{
+	width:50%
+}
+
+.align_cust{
+	margin-left:auto; 
+	margin-right:0;
+}
+
+.item-select select
+{
+    right: auto;
+    padding: 13px 45px 15px 0px;
+    direction: ltr;
+}
+
+.text_cust_right_1{
+	position:relative;
+	margin-left:65%;
+}
+
+.text_cust_right{
+	position:relative;
+	margin-left:25%;
+}
